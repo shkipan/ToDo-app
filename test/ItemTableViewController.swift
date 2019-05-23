@@ -14,31 +14,16 @@ class ItemTableViewController: UITableViewController, UISearchBarDelegate {
     let maxItemLength = 100
     var items = [Item]()
     
-    func loadItems() {
-
-        items += [Item(name:"1"),
-                  Item(name:"2"),
-                  Item(name:"3"),
-                  /*Item(name:"3"),
-                  Item(name:"3"),
-                  Item(name:"3"),
-                  Item(name:"3"),
-                  Item(name:"3"),
-                  Item(name:"3"),
-                  Item(name:"3"),
-                  Item(name:"3"),
-                  Item(name:"3"),
-                  Item(name:"3"),
-                  Item(name:"3"),
-                  Item(name:"3"),*/
-                  Item(name:"10")
-        ]
+    func loadItems() -> [Item]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Item.ArchiveURL.path) as? [Item]
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadItems()
+        if let savedItems = loadItems() {
+            items += savedItems
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,7 +64,9 @@ class ItemTableViewController: UITableViewController, UISearchBarDelegate {
             // delete item at indexPath
             self.items.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            self.saveItems()
         }
+
         
         let shareButton = UITableViewRowAction(style: .normal, title: "Share") { (action, indexPath) in
             // share item at indexPath
@@ -136,6 +123,14 @@ class ItemTableViewController: UITableViewController, UISearchBarDelegate {
                     items.append(item!)
                     tableView.insertRows(at: [newIndexPath], with: .bottom)
             }
+            saveItems()
+        }
+    }
+    
+    func saveItems() {
+        let isSaved = NSKeyedArchiver.archiveRootObject(items, toFile: Item.ArchiveURL.path)
+        if !isSaved {
+            print("Failed to save items...")
         }
     }
 }

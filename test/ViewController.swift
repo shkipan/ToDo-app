@@ -14,15 +14,25 @@ class ViewController: UIViewController {
     var item: Item?
     var index: IndexPath?
     var isEditable: Bool = true;
+    
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var newItemTextView: UITextView!
+    @IBOutlet weak var NavigationItem: UINavigationItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let item = item {
             newItemTextView.text = (item.name as NSString) as String!
             newItemTextView.isEditable = isEditable
             saveButton.isEnabled = isEditable
+            if isEditable {
+                NavigationItem.title = "New note"
+            }
+            else {
+                NavigationItem.title = ""
+            }
         }
     }
 

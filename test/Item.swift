@@ -8,12 +8,27 @@
 
 import Foundation
 
-class Item {
+class Item: NSObject, NSCoding {
     var name: String;
     var date: Date;
+    
+    static let Dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    
+    static let ArchiveURL = Dir.appendingPathComponent("items")
     
     init(name: String) {
         self.name = name;
         self.date = Date()
+        super.init()
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        let name = aDecoder.decodeObject(forKey: "name") as! String
+        self.init(name: name)
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(date, forKey: "date")
     }
 }

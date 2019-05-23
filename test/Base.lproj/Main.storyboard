@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -63,14 +62,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Your notes" id="lff-4n-8FB">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="eae-rL-GGX">
-                                <connections>
-                                    <segue destination="ucW-7L-4KG" kind="show" identifier="AddItem" id="Fbc-zu-sBH"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Sort" id="bdM-iE-Omm"/>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="eae-rL-GGX">
+                            <connections>
+                                <segue destination="ucW-7L-4KG" kind="show" identifier="AddItem" id="Fbc-zu-sBH"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="ucW-7L-4KG" kind="show" identifier="EditNote" id="HJF-lw-I2M"/>
@@ -117,6 +113,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="NavigationItem" destination="GH7-yG-Z6q" id="3Vg-Sm-AfK"/>
                         <outlet property="newItemTextView" destination="YVW-2a-eM3" id="hLZ-Xo-fkF"/>
                         <outlet property="saveButton" destination="GNS-ln-zk1" id="kEE-hw-gcm"/>
                     </connections>
